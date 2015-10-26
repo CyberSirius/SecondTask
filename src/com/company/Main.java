@@ -74,13 +74,17 @@ class Main {
         StringBuilder string = new StringBuilder();
         StringBuilder secondString = new StringBuilder();//for the reverse diags
         for (int i = word.length() - rows; i <= cols - word.length(); i++) {
-            for (int j = 0; i < Math.min(rows, cols); i++) {
+            for (int j = 0; j < Math.min(rows, cols); j++) {
                 if (i < 0) {
-                    string.append(table[j + Math.abs(i)][j]);
-                    secondString.append(table[j + Math.abs(i)][word.length() - j - 1]);
+                    if (j + Math.abs(i) < Math.min(rows, cols)) {
+                        string.append(table[j + Math.abs(i)][j]);
+                        secondString.append(table[j + Math.abs(i)][cols - j - 1]);
+                    }
                 } else {
-                    string.append(table[j][j + i]);
-                    secondString.append(table[word.length() - j - 1][j + i]);
+                    if (j + i < Math.min(rows, cols)) {
+                        string.append(table[j][j + i]);
+                        secondString.append(table[rows - j - 1][j + i]);
+                    }
                 }
             }
             counter += subStringCounter(string.toString(), word);
