@@ -75,27 +75,28 @@ class Main {
         StringBuilder secondString = new StringBuilder();//for the reverse diags
         for (int i = word.length() - rows; i <= cols - word.length(); i++) {
             for (int j = 0; j < Math.min(rows, cols); j++) {
-                if (i < 0) {
-                    if (j + Math.abs(i) < Math.min(rows, cols)) {
+                if (i <= 0) {
+                    if (j + Math.abs(i) < rows) {
                         string.append(table[j + Math.abs(i)][j]);
                         secondString.append(table[j + Math.abs(i)][cols - j - 1]);
                     }
                 } else {
-                    if (j + i < Math.min(rows, cols)) {
+                    if (j + i <= cols) {
                         string.append(table[j][j + i]);
                         secondString.append(table[rows - j - 1][j + i]);
                     }
                 }
             }
+            //grozen kod!
             counter += subStringCounter(string.toString(), word);
             counter += subStringCounter(secondString.toString(), word);
             string = string.reverse();
             secondString = secondString.reverse();
             counter += subStringCounter(string.toString(), word);
             counter += subStringCounter(secondString.toString(), word);
-            string = string.delete(0, string.capacity());
+            string = new StringBuilder();
 
-            string = string.delete(0, string.capacity());
+            secondString = new StringBuilder();
 
         }
         return counter;
